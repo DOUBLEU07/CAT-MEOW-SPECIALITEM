@@ -9,6 +9,7 @@ public class AnimatedSprite_SG : MonoBehaviour
     public Sprite[] sprites;
     public float animationTime = 0.25f;
     public bool loop = true;
+    public GameManager_SG gameManager;
 
     public SpriteRenderer spriteRenderer { get; private set; }
     public int animationFrame { get; private set; }
@@ -25,21 +26,23 @@ public class AnimatedSprite_SG : MonoBehaviour
 
     private void Advance()
     {
-        if (!this.spriteRenderer.enabled)
-        {
-            return;
-        }
+        if (!gameManager.stopDog){
+            if (!this.spriteRenderer.enabled)
+            {
+                return;
+            }
 
-        this.animationFrame++;
+            this.animationFrame++;
 
-        if (this.animationFrame >= this.sprites.Length && this.loop)
-        {
-            this.animationFrame = 0;
-        }
+            if (this.animationFrame >= this.sprites.Length && this.loop)
+            {
+                this.animationFrame = 0;
+            }
 
-        if (this.animationFrame >= 0 && this.animationFrame < this.sprites.Length)
-        {
-            this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+            if (this.animationFrame >= 0 && this.animationFrame < this.sprites.Length)
+            {
+                this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+            }
         }
     }
 

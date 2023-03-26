@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Threading;
 
 public class GameManager_SG : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class GameManager_SG : MonoBehaviour
     public GameObject Joystick;
     public Text Score_win;
     public Text Score_lose;
+    public bool stopDog = false;
 
     public int score;
 
@@ -134,7 +137,7 @@ public class GameManager_SG : MonoBehaviour
         }
     }
 
-        public void SpecialEaten(SpecialItem normal_food)
+    public void SpecialEaten(SpecialItem normal_food)
     {
         Debug.Log(normal_food.gameObject);
         normal_food.gameObject.SetActive(false);
@@ -152,7 +155,8 @@ public class GameManager_SG : MonoBehaviour
         }   
         else if (normal_food.gameObject.name == "ItemC")
         {
-            
+            stopDog = true;
+            Invoke("ResetStopDog",3.0f);
         }   
         
 
@@ -162,6 +166,11 @@ public class GameManager_SG : MonoBehaviour
             this.cat.gameObject.SetActive(false);
             Case("win");
         }
+    }
+
+    public void ResetStopDog()
+    {
+        stopDog = false;
     }
 
     public void CatEnergyEaten(CatEnergy_SG cat_energy)

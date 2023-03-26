@@ -7,24 +7,25 @@ public class DogChase_SG : DogBehavior_SG
     private void OnTriggerEnter2D(Collider2D other)
     {
         Node node = other.GetComponent<Node>();
-
-        if (node != null && this.enabled)
-        {
-            Vector2 direction = Vector2.zero;
-            float minDistance = float.MaxValue;
-
-            foreach (Vector2 availableDirection in node.availableDirections)
+        if (!gameManager.stopDog){
+            if (node != null && this.enabled)
             {
-                Vector3 newPosition = this.transform.position + new Vector3(availableDirection.x, availableDirection.y, 0.0f);
-                float distance = (this.dog.target.position - newPosition).sqrMagnitude;
+                Vector2 direction = Vector2.zero;
+                float minDistance = float.MaxValue;
 
-                if (distance < minDistance)
+                foreach (Vector2 availableDirection in node.availableDirections)
                 {
-                    direction = availableDirection;
-                    minDistance = distance;
+                    Vector3 newPosition = this.transform.position + new Vector3(availableDirection.x, availableDirection.y, 0.0f);
+                    float distance = (this.dog.target.position - newPosition).sqrMagnitude;
+
+                    if (distance < minDistance)
+                    {
+                        direction = availableDirection;
+                        minDistance = distance;
+                    }
                 }
-            }
-            this.dog.movement.SetDirection(direction);
+                this.dog.movement.SetDirection(direction);
+        }
         }
     }
 }

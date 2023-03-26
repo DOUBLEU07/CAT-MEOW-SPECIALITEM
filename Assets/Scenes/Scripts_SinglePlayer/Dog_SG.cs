@@ -59,7 +59,10 @@ public class Dog_SG : MonoBehaviour
 
     private IEnumerator DogStartMovement()
     {
-        yield return new WaitForSeconds(duration);
-        this.movement.enabled = true;
+        Debug.Log(!gameManager.stopDog);
+        if (!gameManager.stopDog){
+            yield return new WaitForSeconds(duration);
+            this.movement.enabled = true;
+        }
     }
 }

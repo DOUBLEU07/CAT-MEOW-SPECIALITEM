@@ -6,6 +6,7 @@ public class DogDirection_SG : MonoBehaviour
 {
     public string direction = "left";
     public Movement_SG movement { get; private set; }
+    public GameManager_SG gameManager;
     void Awake()
     {
         this.movement = GetComponentInParent<Movement_SG>();
@@ -13,20 +14,22 @@ public class DogDirection_SG : MonoBehaviour
 
     void Update()
     {
-        if (this.movement.direction == Vector2.left)
-        {
-            if (direction == "right")
+        if (!gameManager.stopDog){
+            if (this.movement.direction == Vector2.left)
             {
-                this.transform.Rotate(Vector3.up * 180);
-                direction = "left";
+                if (direction == "right")
+                {
+                    this.transform.Rotate(Vector3.up * 180);
+                    direction = "left";
+                }
             }
-        }
-        else if (this.movement.direction == Vector2.right)
-        {
-            if (direction == "left")
+            else if (this.movement.direction == Vector2.right)
             {
-                this.transform.Rotate(Vector3.up * 180);
-                direction = "right";
+                if (direction == "left")
+                {
+                    this.transform.Rotate(Vector3.up * 180);
+                    direction = "right";
+                }
             }
         }
     }

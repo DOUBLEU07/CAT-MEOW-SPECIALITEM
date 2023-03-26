@@ -11,6 +11,7 @@ public class Movement_SG : MonoBehaviour
     public float speedMultiplier = 1.0f;
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
+    public GameManager_SG gameManager;
 
     public new Rigidbody2D rigidbody { get; private set; }
     public Vector2 direction { get; private set; }
@@ -40,18 +41,22 @@ public class Movement_SG : MonoBehaviour
 
     private void Update()
     {
-        if (this.nextDirection != Vector2.zero)
-        {
-            SetDirection(this.nextDirection);
+        if (!gameManager.stopDog){
+            if (this.nextDirection != Vector2.zero)
+            {
+                SetDirection(this.nextDirection);
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        Vector2 position = this.rigidbody.position;
-        Vector2 translation = this.direction * this.speed * Time.fixedDeltaTime;
+        if (!gameManager.stopDog){
+            Vector2 position = this.rigidbody.position;
+            Vector2 translation = this.direction * this.speed * Time.fixedDeltaTime;
 
-        this.rigidbody.MovePosition(position + translation);
+            this.rigidbody.MovePosition(position + translation);
+        }
     }
 
     public void SetDirection(Vector2 direction, bool forced = false)
